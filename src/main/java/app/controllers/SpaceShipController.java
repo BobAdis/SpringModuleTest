@@ -4,6 +4,7 @@ import app.models.Crew;
 import app.models.SpaceShip;
 import app.models.SpaceShipClass;
 import app.repositories.CrewRepo;
+import app.repositories.SpaceShipRepo;
 import app.services.CrewService;
 import app.services.SpaceShipService;
 import org.springframework.stereotype.Controller;
@@ -22,11 +23,13 @@ public class SpaceShipController {
     private final SpaceShipService spaceShipService;
     private final CrewService crewService;
     private final CrewRepo crewRepo;
+    private final SpaceShipRepo spaceShipRepo;
 
-    public SpaceShipController(SpaceShipService spaceShipService, CrewService crewService, CrewRepo crewRepo) {
+    public SpaceShipController(SpaceShipService spaceShipService, CrewService crewService, CrewRepo crewRepo, SpaceShipRepo spaceShipRepo) {
         this.spaceShipService = spaceShipService;
         this.crewService = crewService;
         this.crewRepo = crewRepo;
+        this.spaceShipRepo = spaceShipRepo;
     }
 
 
@@ -69,12 +72,12 @@ public class SpaceShipController {
         return "spaceshipcrew";
     }*/
 
-    @GetMapping(value = "/spaceshipcrew/{dutyShip}", produces = "application/json")
-    public @ResponseBody Crew spaceshipCrewData(@PathVariable String dutyShip, Model model) {
-        Optional<Crew> crew = crewRepo.findByDutyShip(dutyShip);
-        List<Crew> crews = crewService.getAllMembers();
-        model.addAttribute("crew", crews);
-        return crew.orElseThrow();
+    @GetMapping(value = "/spaceshipcrew/{dutyShip}")
+    public String spaceshipCrewData(@PathVariable String dutyShip, Model model) {
+        Optional<SpaceShip> ship = spaceShipService.getShip(dutyShip);
+
+        model.addAttribute("crew", ship.orElseThrow().getCrews());
+        return "oneshipcrew";
     }
 
 
