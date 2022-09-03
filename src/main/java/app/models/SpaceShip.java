@@ -109,4 +109,8 @@ public class SpaceShip {
         this.crews = crews;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

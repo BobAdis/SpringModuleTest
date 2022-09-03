@@ -11,16 +11,24 @@
 
 <div id="container">
 
-    <form data-th-object="${newShip}">
-
-        <select data-th-field="*{spaceShipClass}">
-            <option data-th-each="shipClass : ${shipClasses}"
-                    data-th-value="${shipClass}"
-                    data-th-text="${shipClass}">
-            </option>
-        </select>
-
-    </form>
+    <form data-th-action="@{/spaceship}" method="post" data-th-object="${newShip}">
+        <table>
+            <tr>
+                <select data-th-field="*{spaceShipClass}">
+                    <option data-th-each="shipClass : ${shipClasses}"
+                            data-th-value="${shipClass}"
+                            data-th-text="${shipClass}">
+                    </option>
+                </select>
+            </tr>
+            <tr>
+                <input type="text" data-th-field="*{name}" placeholder="Name">
+            </tr>
+            <tr>
+                <input type="checkbox" data-th-field="*{isActive}">
+            </tr>
+        </table>
+  </form>
 
 </div>
 

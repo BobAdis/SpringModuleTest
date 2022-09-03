@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>New officer</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+<div id="container">
+  <div class="form">
+    <h1>New Officer</h1>
+
+    <p data-th-if="${registerError}" class="error">This username is already taken.</p>
+
+    <form class="form" data-th-action="@{/newofficer}" method="post" data-th-object="${officer}">
+      <input type="text" data-th-field="*{username}" placeholder="username">
+      <input type="password" data-th-field="*{password}" placeholder="password">
+      <input class="send_button" type="submit" value="Registration">
+    </form>
+  </div>
+</div>
+
+</body>
+
+</html>
